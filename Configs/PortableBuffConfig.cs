@@ -17,3 +17,5 @@ public class PortableBuffConfig : ModConfig
     [DefaultValue(true)]
     public bool EnableStarInBottleBuff { get; set; }
 }
+ 
+ 
