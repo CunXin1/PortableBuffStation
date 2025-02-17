@@ -1,1 +1,25 @@
+Configs: {
+	PortableBuffConfig: {
+		EnableStarInBottleBuff: {
+			Tooltip: ""
+			Label: Enable Star In Bottle Buff
+		}
 
+		EnableSunflowerBuff: {
+			Tooltip: ""
+			Label: Enable Sunflower Buff
+		}
+
+		EnableHeartLanternBuff: {
+			Tooltip: ""
+			Label: Enable Heart Lantern Buff
+		}
+
+		EnableCampfireBuff: {
+			Tooltip: ""
+			Label: Enable Campfire Buff
+		}
+
+		DisplayName: Portable Buff Config
+	}
+}
