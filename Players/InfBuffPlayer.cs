@@ -70,17 +70,6 @@ namespace MyMod
                         else if (buffType == -100)
                             PortableBuffStationSystem.HasGardenGnome = true;
                     }
-                    else if (buffType == -200)
-                    {
-                        // 这是旗帜标记 => 需要设置 SceneMetrics.hasBanner = true, NPCBannerBuff[npcType] = true
-                        var npcTypes = BuffLookups.GetBannerNPCs(item.type);
-                        if (npcTypes.Length > 0)
-                        {
-                            Main.SceneMetrics.hasBanner = true;
-                            foreach (var n in npcTypes)
-                                Main.SceneMetrics.NPCBannerBuff[n] = true;
-                        }
-                    }
                 }
             }
         }
@@ -101,11 +90,6 @@ namespace MyMod
 
             AvailableItemsHash = AvailableItems.ToHashSet();
 
-            // 如果你需要做网络同步或判断是否变化
-            // if (!oldList.SequenceEqual(AvailableItems))
-            // {
-            //     // do something
-            // }
         }
 
         private void CheckItems(Item[] container)

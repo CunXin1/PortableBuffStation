@@ -25,10 +25,7 @@ namespace MyMod.Systems
 
         public override void PostDrawInterface(SpriteBatch spriteBatch)
         {
-            // 如果没启用隐藏，则无需执行
-            if (!ModContent.GetInstance<MyModConfig>().HideShortBuffIcons)
-                return;
-
+           
             // 每帧先清空
             Array.Clear(BuffTypesShouldHide, 0, BuffTypesShouldHide.Length);
 

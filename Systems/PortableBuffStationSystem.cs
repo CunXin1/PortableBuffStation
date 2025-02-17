@@ -43,6 +43,7 @@ namespace MyMod
                 Main.SceneMetrics.ShadowCandleCount++;
         }
 
+    /**
         public override void ResetNearbyTileEffects()
         {
             // 只在客户端执行
@@ -60,5 +61,6 @@ namespace MyMod
             if (HasStarInBottle)
                 Main.SceneMetrics.HasStarInBottle = true;
         }
+        */
     }
 }

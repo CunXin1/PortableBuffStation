@@ -11,76 +11,46 @@ namespace MyMod.Systems
     /// </summary>
     public static class BuffLookups
     {
-        // 原版药水 (简化示例)
-        public static Dictionary<int, int> VanillaPotions = new Dictionary<int, int>()
-        {
-            // 例如: IronskinPotion -> BuffID.Ironskin
-            { ItemID.IronskinPotion, BuffID.Ironskin },
-            { ItemID.SwiftnessPotion, BuffID.Swiftness },
-            { ItemID.LuckPotion, BuffID.Lucky },
-            // ... 这里需要自己补充
-        };
-
-        // ModdedPotions: 给外部或你自己加 Mod物品 => BuffID
-        public static Dictionary<int, int> ModdedPotions = new Dictionary<int, int>();
-
-        // 原版旗帜
-        public static Dictionary<int, int[]> VanillaBanners = new Dictionary<int, int[]>()
-        {
-            // 例如: ItemID.ZombieBanner -> new[]{ NPCID.Zombie, NPCID.ZombieEskimo, ... }
-            // 这里要自己补全
-            
-            // ...
-        };
-
-        // ModdedBanners: 给Mod物品 => npcType数组
-        public static Dictionary<int, int[]> ModdedBanners = new Dictionary<int, int[]>();
-
+        
         // 原版增益站(放置型)
         // 对于营火/心灯/星瓶/向日葵/侏儒/蜡烛 之类, 我们把 "物品ID -> buffID" 或 "物品ID -> specialFlag" 简化处理
         // 也可使用 SceneMetrics 方式, 这里仅做一个记录
         public static Dictionary<int, int> VanillaBuffStations = new Dictionary<int, int>()
         {
-            // 例如: 全部营火 => BuffID.Campfire
-            { ItemID.Campfire, BuffID.Campfire },
-            { ItemID.BoneCampfire, BuffID.Campfire },
-            { ItemID.CursedCampfire, BuffID.Campfire },
-            // ...
-            { ItemID.HeartLantern, BuffID.HeartLamp },
-            { ItemID.StarinaBottle, BuffID.StarInBottle },
-            { ItemID.Sunflower, BuffID.Sunflower },
-            { ItemID.GardenGnome, -100 }, // 用 -100 表示侏儒, 需要特殊处理
-            { ItemID.WaterCandle, BuffID.WaterCandle },
-            { ItemID.PeaceCandle, BuffID.PeaceCandle },
-            // ...
+        // 1. 只保留一个普通营火 => BuffID.Campfire
+        { ItemID.Campfire, BuffID.Campfire },
+
+        // 2. 心形灯笼、星瓶、向日葵
+        { ItemID.HeartLantern, BuffID.HeartLamp },
+        { ItemID.StarinaBottle, BuffID.StarInBottle },
+        { ItemID.Sunflower, BuffID.Sunflower },
+
+        // 3. 花园侏儒（原版没有对应Buff，用 -100 代表“侏儒Luck”，需特殊逻辑处理）
+        { ItemID.GardenGnome, -100 },
+
+        // 4. 三种蜡烛：水蜡烛、和平蜡烛、暗影蜡烛
+        { ItemID.WaterCandle, BuffID.WaterCandle },
+        { ItemID.PeaceCandle, BuffID.PeaceCandle },
+        { ItemID.ShadowCandle, BuffID.ShadowCandle },
+
+        // 5. 巴斯特雕像（BuffID.Bast）
+        { ItemID.CatBast, BuffID.CatBast },
+
+        // 6. 女巫桌、弹药箱、磨刀架、水晶球、蛋糕
+        { ItemID.BewitchingTable, BuffID.Bewitched },    // +1仆从上限
+        { ItemID.AmmoBox, BuffID.AmmoBox },              // 20%几率不消耗弹药
+        { ItemID.SharpeningStation, BuffID.Sharpened },  // 近战武器穿刺
+        { ItemID.CrystalBall, BuffID.Clairvoyance },     // +2魔力上限等
+        { ItemID.SliceOfCake, BuffID.SugarRush },        // 移速与攻击速度提升
+
+        // 7. 蜂蜜桶（如果你想在背包里也能享受蜂蜜Buff）
+        { ItemID.HoneyBucket, BuffID.Honey }
         };
 
         // ModdedStations
         public static Dictionary<int, int> ModdedStations = new Dictionary<int, int>();
 
-        /// <summary>
-        /// 返回 item 是否为原版或modded药水，以及对应的Buff
-        /// </summary>
-        public static int GetPotionBuff(int itemType)
-        {
-            if (VanillaPotions.TryGetValue(itemType, out var buff))
-                return buff;
-            if (ModdedPotions.TryGetValue(itemType, out var modBuff))
-                return modBuff;
-            return -1;
-        }
 
-        /// <summary>
-        /// 返回 item 是否是旗帜，以及对应的NPCType[]
-        /// </summary>
-        public static int[] GetBannerNPCs(int itemType)
-        {
-            if (VanillaBanners.TryGetValue(itemType, out var npcs))
-                return npcs;
-            if (ModdedBanners.TryGetValue(itemType, out var modNPCs))
-                return modNPCs;
-            return new int[0];
-        }
 
         /// <summary>
         /// 返回 item 是否是增益站物品(营火/心灯/侏儒/蜡烛等)

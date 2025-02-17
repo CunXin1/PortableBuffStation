@@ -8,7 +8,7 @@ using MyMod.Systems;
 namespace MyMod
 {
     /// <summary>
-    /// 物品层面的逻辑：判断是不是无限药水、是不是旗帜、是不是增益站
+    /// 物品层面的逻辑：判断是不是增益站
     /// 并给出 Tooltip
     /// </summary>
     public class InfBuffGlobalItem : GlobalItem
@@ -24,13 +24,6 @@ namespace MyMod
             var list = new List<int>();
             var config = ModContent.GetInstance<MyModConfig>();
 
-            // 1) 如果是药水 (检查数量是否≥config.InfinitePotionRequirement)
-            if (config.EnableInfinitePotions && item.stack >= config.InfinitePotionRequirement)
-            {
-                int buff = BuffLookups.GetPotionBuff(item.type);
-                if (buff != -1)
-                    list.Add(buff);
-            }
 
             // 2) 如果是增益站
             if (config.EnablePortableStations)
@@ -42,21 +35,7 @@ namespace MyMod
                 // 也可以在InfBuffPlayer里处理
             }
 
-            // 3) 如果是旗帜
-            if (config.EnableBanners)
-            {
-                int[] npcs = BuffLookups.GetBannerNPCs(item.type);
-                // 旗帜Buff一般不是AddBuff, 需要后续SceneMetrics/NPCBannerBuff[npcType] = true
-                // 这里可以返回一个特殊ID，比如 -200, or just do nothing
-                if (npcs.Length > 0)
-                {
-                    // 这里仅返回一个标记
-                    list.Add(-200); // -200 => 代表是旗帜
-                }
-            }
-
-            // 你也可以处理 “HoneyBucket => BuffID.Honey” 之类
-
+           
             return list;
         }
 
