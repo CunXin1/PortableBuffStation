@@ -3,11 +3,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using System.Linq;
-using MyMod.Configs;
-using MyMod.Systems;
+using PortableBuffStation.Configs;
+using PortableBuffStation.Systems;
 using Microsoft.Xna.Framework;
 
-namespace MyMod
+namespace PortableBuffStation
 {
     /// <summary>
     /// 核心：收集可用物品 + 每帧或每隔X帧给玩家应用Buff
@@ -39,40 +39,94 @@ namespace MyMod
         }
 
         private void ApplyAvailableBuffs()
+{
+    foreach (var item in AvailableItems)
+    {
+        var buffTypes = InfBuffGlobalItem.GetBuffTypes(item);
+        foreach (int buffType in buffTypes)
         {
-            var config = ModContent.GetInstance<MyModConfig>();
-            foreach (var item in AvailableItems)
+            // 如果是正常BuffID（≥0）
+            if (buffType >= 0)
             {
-                var buffTypes = InfBuffGlobalItem.GetBuffTypes(item);
-                foreach (int buffType in buffTypes)
-                {
-                    if (buffType >= 0)
-                    {
-                        // 如果是普通BuffID，给个AddBuff(30帧)
-                        // 但我们会隐藏它的图标
-                        Player.AddBuff(buffType, 30);
+                // 给玩家短时Buff，但会用HideBuffSystem隐藏0秒图标
+                Player.AddBuff(buffType, 30);
 
-                        // 若是营火/心灯/星瓶/侏儒等, 还要让 SceneMetrics 生效
-                        if (buffType == BuffID.Campfire)
-                            PortableBuffStationSystem.HasCampfire = true;
-                        else if (buffType == BuffID.HeartLamp)
-                            PortableBuffStationSystem.HasHeartLantern = true;
-                        else if (buffType == BuffID.StarInBottle)
-                            PortableBuffStationSystem.HasStarInBottle = true;
-                        else if (buffType == BuffID.Sunflower)
-                            PortableBuffStationSystem.HasSunflower = true;
-                        else if (buffType == BuffID.WaterCandle)
-                            PortableBuffStationSystem.HasWaterCandle = true;
-                        else if (buffType == BuffID.PeaceCandle)
-                            PortableBuffStationSystem.HasPeaceCandle = true;
-                        else if (buffType == BuffID.ShadowCandle)
-                            PortableBuffStationSystem.HasShadowCandle = true;
-                        else if (buffType == -100)
-                            PortableBuffStationSystem.HasGardenGnome = true;
-                    }
+                // 同时如果是环境Buff，就设置SceneMetrics标志
+                if (buffType == BuffID.Campfire)
+                {
+                    // 普通营火
+                    PortableBuffStationSystem.HasCampfire = true;
+                }
+                else if (buffType == BuffID.HeartLamp)
+                {
+                    // 心形灯笼
+                    PortableBuffStationSystem.HasHeartLantern = true;
+                }
+                else if (buffType == BuffID.StarInBottle)
+                {
+                    // 星瓶
+                    PortableBuffStationSystem.HasStarInBottle = true;
+                }
+                else if (buffType == BuffID.Sunflower)
+                {
+                    // 向日葵
+                    PortableBuffStationSystem.HasSunflower = true;
+                }
+                else if (buffType == BuffID.WaterCandle)
+                {
+                    // 水蜡烛
+                    PortableBuffStationSystem.HasWaterCandle = true;
+                }
+                else if (buffType == BuffID.PeaceCandle)
+                {
+                    // 和平蜡烛
+                    PortableBuffStationSystem.HasPeaceCandle = true;
+                }
+                else if (buffType == BuffID.ShadowCandle)
+                {
+                    // 暗影蜡烛
+                    PortableBuffStationSystem.HasShadowCandle = true;
+                }
+                else if (buffType == BuffID.CatBast)
+                {
+                    // 巴斯特雕像（+5防御）
+                    //PortableBuffStationSystem.HasCatBast = true;
+                }
+                else if (buffType == BuffID.Bewitched)
+                {
+                    // 女巫桌（+1仆从上限）
+                }
+                else if (buffType == BuffID.AmmoBox)
+                {
+                    // 弹药箱（20%几率不消耗弹药）
+                }
+                else if (buffType == BuffID.Sharpened)
+                {
+                    // 磨刀架（近战武器穿透）
+                }
+                else if (buffType == BuffID.Clairvoyance)
+                {
+                    // 水晶球（+2魔力上限、+5%魔伤等）
+                }
+                else if (buffType == BuffID.SugarRush)
+                {
+                    // 蛋糕（提升移速与攻击速度）
+                }
+                else if (buffType == BuffID.Honey)
+                {
+                    // 蜂蜜（加速生命回复）
                 }
             }
+            // 如果 buffType == -100，则表示侏儒，需要特殊处理
+            else if (buffType == -100)
+            {
+                // 侏儒（幸运加成）
+                PortableBuffStationSystem.HasGardenGnome = true;
+            }
         }
+    }
+}
+
 
         // 每隔一段时间更新可用物品列表
         private void SetupItemsList()
@@ -95,7 +149,7 @@ namespace MyMod
         private void CheckItems(Item[] container)
         {
             if (container == null) return;
-            var config = ModContent.GetInstance<MyModConfig>();
+            var config = ModContent.GetInstance<Configs.MyModConfig>();
             foreach (var item in container)
             {
                 if (item is null || item.IsAir) continue;

@@ -3,9 +3,9 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using MyMod.Configs;
+using PortableBuffStation.Configs;
 
-namespace MyMod.Systems
+namespace PortableBuffStation.Systems
 {
     public class HideBuffSystem : ModSystem
     {

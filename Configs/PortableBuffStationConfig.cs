@@ -3,7 +3,7 @@ using Terraria;
 using System.ComponentModel;
 using Terraria.ModLoader.Config;
 
-namespace MyMod.Configs
+namespace PortableBuffStation.Configs
 {
     public class MyModConfig : ModConfig
     {

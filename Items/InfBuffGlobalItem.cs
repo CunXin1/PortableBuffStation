@@ -2,10 +2,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
-using MyMod.Configs;
-using MyMod.Systems;
+using PortableBuffStation.Configs;
+using PortableBuffStation.Systems;
 
-namespace MyMod
+
+namespace PortableBuffStation
 {
     /// <summary>
     /// 物品层面的逻辑：判断是不是增益站
@@ -22,7 +23,7 @@ namespace MyMod
         public static List<int> GetBuffTypes(Item item)
         {
             var list = new List<int>();
-            var config = ModContent.GetInstance<MyModConfig>();
+            var config = ModContent.GetInstance<Configs.MyModConfig>();
 
 
             // 2) 如果是增益站

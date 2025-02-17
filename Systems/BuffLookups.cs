@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 
-namespace MyMod.Systems
+namespace PortableBuffStation.Systems
 {
     /// <summary>
     /// 维护各种物品→Buff/NPC映射，用于药水、旗帜、增益站等

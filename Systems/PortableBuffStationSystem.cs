@@ -1,10 +1,10 @@
 using Terraria;
 using Terraria.ModLoader;
 using System;
-using MyMod.Configs;
+using PortableBuffStation.Configs;
 using Terraria.ID;
 
-namespace MyMod
+namespace PortableBuffStation
 {
     /// <summary>
     /// 类似“ApplyBuffStation”文件，用来设置SceneMetrics
@@ -43,7 +43,7 @@ namespace MyMod
                 Main.SceneMetrics.ShadowCandleCount++;
         }
 
-    /**
+    
         public override void ResetNearbyTileEffects()
         {
             // 只在客户端执行
@@ -61,6 +61,6 @@ namespace MyMod
             if (HasStarInBottle)
                 Main.SceneMetrics.HasStarInBottle = true;
         }
-        */
+        
     }
 }
