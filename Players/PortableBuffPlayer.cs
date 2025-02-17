@@ -1,93 +1,84 @@
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
-using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
+using System.Collections.Generic;
+using System;
 
 public class PortableBuffPlayer : ModPlayer
 {
-    public bool HasCampfire;
-    public bool HasHeartLantern;
-    public bool HasSunflower;
-    public bool HasStarInBottle;
-
-    public override void ResetEffects()
+    // 1. 定义一个静态字典，物品ID → 给玩家添加Buff或设置环境效果的逻辑
+    public static Dictionary<int, Action<Player>> BuffStationActions = new Dictionary<int, Action<Player>>
     {
-        HasCampfire = false;
-        HasHeartLantern = false;
-        HasSunflower = false;
-        HasStarInBottle = false;
-    }
+        // 篝火
+        { ItemID.Campfire, (player) =>
+            {
+                // 让游戏认为有篝火环境
+                Main.SceneMetrics.HasCampfire = true;
+                // 也可以手动加Buff
+                player.AddBuff(BuffID.Campfire, 30);
+            }
+        },
+        // 心形灯笼
+        { ItemID.HeartLantern, (player) =>
+            {
+                Main.SceneMetrics.HasHeartLantern = true;
+                player.AddBuff(BuffID.HeartLamp, 30);
+            }
+        },
+        // 向日葵
+        { ItemID.Sunflower, (player) =>
+            {
+                Main.SceneMetrics.HasSunflower = true;
+                player.AddBuff(BuffID.Sunflower, 30);
+            }
+        },
+        // 星瓶
+        { ItemID.StarinaBottle, (player) =>
+            {
+                Main.SceneMetrics.HasStarInBottle = true;
+                player.AddBuff(BuffID.StarInBottle, 30);
+            }
+        },
+        // ———————— 5. Bast Statue ————————
+        { ItemID.CatBast, (player) =>
+        {
+            // Bast是 +5 防御
+            player.AddBuff(BuffID.CatBast, 30);
+            
+        }
+        },
+        
+    };
 
     public override void PostUpdateBuffs()
-{
-    // 1. 检查玩家背包
-    CheckBuffItems(Player.inventory);
-
-    // 2. 检查猪猪存钱罐
-    if (Player.bank != null && Player.bank.item != null)
-        CheckBuffItems(Player.bank.item);
-
-    // 3. 检查保险箱
-    if (Player.bank2 != null && Player.bank2.item != null)
-        CheckBuffItems(Player.bank2.item);
-
-    // 4. 检查拍卖箱
-    if (Player.bank3 != null && Player.bank3.item != null)
-        CheckBuffItems(Player.bank3.item);
-
-    // 5. 检查虚空仓库
-    if (Player.bank4 != null && Player.bank4.item != null)
-        CheckBuffItems(Player.bank4.item);
-
-    // 最后，给玩家添加 Buff
-    if (HasCampfire)
-        Player.AddBuff(BuffID.Campfire, 30);
-    if (HasHeartLantern)
-        Player.AddBuff(BuffID.HeartLamp, 30);
-    if (HasSunflower)
-        Player.AddBuff(BuffID.Sunflower, 30);
-    if (HasStarInBottle)
-        Player.AddBuff(BuffID.StarInBottle, 30);
-}
-
-
-    // 🚀 提取方法，避免重复代码
-    private void CheckBuffItems(Item[] items)
     {
-        foreach (Item item in items)
-        {
-            if (item.IsAir) continue;
+        // 先检查玩家背包
+        CheckBuffStations(Player.inventory);
 
-            switch (item.type)
+        // 检查 猪猪存钱罐 / 保险箱 / 拍卖箱 / 虚空仓库 (旧版 TML)
+        if (Player.bank != null && Player.bank.item != null)
+            CheckBuffStations(Player.bank.item);
+        if (Player.bank2 != null && Player.bank2.item != null)
+            CheckBuffStations(Player.bank2.item);
+        if (Player.bank3 != null && Player.bank3.item != null)
+            CheckBuffStations(Player.bank3.item);
+        if (Player.bank4 != null && Player.bank4.item != null)
+            CheckBuffStations(Player.bank4.item);
+    }
+
+    // 2. 封装一个方法，用来遍历物品数组，并根据字典执行对应逻辑
+    private void CheckBuffStations(Item[] items)
+    {
+        foreach (var item in items)
+        {
+            if (item.IsAir)
+                continue;
+
+            if (BuffStationActions.TryGetValue(item.type, out var action))
             {
-                case ItemID.Campfire:
-                    HasCampfire = true;
-                    break;
-                case ItemID.HeartLantern:
-                    HasHeartLantern = true;
-                    break;
-                case ItemID.Sunflower:
-                    HasSunflower = true;
-                    break;
-                case ItemID.StarinaBottle:
-                    HasStarInBottle = true;
-                    break;
+                // 如果字典里有这个物品的映射，就执行对应的逻辑
+                action.Invoke(Player);
             }
         }
     }
-
-
-
-    public override void PreUpdateBuffs()
-{
-    if (HasCampfire)
-        Main.SceneMetrics.HasCampfire = true;
-    if (HasHeartLantern)
-        Main.SceneMetrics.HasHeartLantern = true;
-    if (HasSunflower)
-        Main.SceneMetrics.HasSunflower = true;
-    if (HasStarInBottle)
-        Main.SceneMetrics.HasStarInBottle = true;
-}
-
 }
