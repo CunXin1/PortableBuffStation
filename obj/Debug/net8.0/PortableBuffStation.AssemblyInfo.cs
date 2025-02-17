@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PortableBuffStation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a8057c97d50b2b6899675d7147d4f537cc6a7a7e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+97785981d54af44edc952ee5686029a90a27b00b")]
 [assembly: System.Reflection.AssemblyProductAttribute("PortableBuffStation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PortableBuffStation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

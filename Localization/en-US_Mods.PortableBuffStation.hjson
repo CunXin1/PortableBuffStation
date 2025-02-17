@@ -22,4 +22,57 @@ Configs: {
 
 		DisplayName: Portable Buff Config
 	}
+
+	PortableBuffStationConfig: {
+		EnableHoney: {
+			Tooltip: ""
+			Label: Enable Honey Bucket In Inventory
+		}
+
+		EnableGardenGnome: {
+			Tooltip: ""
+			Label: Enable Garden Gnome Effect In Inventory
+		}
+
+		EnableBanners: {
+			Tooltip: ""
+			Label: Enable Banners In Inventory
+		}
+
+		EnablePortableStations: {
+			Tooltip: ""
+			Label: Enable Portable Buff Stations
+		}
+
+		DisplayName: Portable Buff Station Config
+	}
+
+	MyModConfig: {
+		DisplayName: My Mod Config
+
+		EnableInfinitePotions: {
+			Label: Enable Infinite Potions
+			Tooltip: ""
+		}
+
+		EnablePortableStations: {
+			Label: Enable Portable Buff Stations
+			Tooltip: ""
+		}
+
+		EnableBanners: {
+			Label: Enable Banners In Inventory
+			Tooltip: ""
+		}
+
+		HideShortBuffIcons: {
+			Label: Hide Short Buff Icons (0s)
+			Tooltip: ""
+		}
+
+		InfinitePotionRequirement: {
+			Label: Potion Requirement For Infinite
+			Tooltip: ""
+		}
+	}
 }

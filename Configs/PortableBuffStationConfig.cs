@@ -1,14 +1,17 @@
 using Terraria.ModLoader;
 using Terraria;
 using System.ComponentModel;
-using Terraria.Localization;
 using Terraria.ModLoader.Config;
 
-namespace PortableBuffStation.Configs
+namespace MyMod.Configs
 {
-    public class PortableBuffStationConfig : ModConfig
+    public class MyModConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
+
+        [Label("Enable Infinite Potions")]
+        [DefaultValue(true)]
+        public bool EnableInfinitePotions;
 
         [Label("Enable Portable Buff Stations")]
         [DefaultValue(true)]
@@ -18,15 +21,20 @@ namespace PortableBuffStation.Configs
         [DefaultValue(true)]
         public bool EnableBanners;
 
-        [Label("Enable Garden Gnome Effect In Inventory")]
+        [Label("Hide Short Buff Icons (0s)")]
         [DefaultValue(true)]
-        public bool EnableGardenGnome;
+        public bool HideShortBuffIcons;
 
-        [Label("Enable Honey Bucket In Inventory")]
-        [DefaultValue(true)]
-        public bool EnableHoney;
+        [Label("Potion Requirement For Infinite")]
+        [DefaultValue(30)]
+        [Range(1, 999)]
+        public int InfinitePotionRequirement;
 
-        // 你还可以继续加更多开关
+        // 你可以再加更多开关，比如:
+        // [Label("Enable Gnome Luck In Inventory")]
+        // [DefaultValue(true)]
+        // public bool EnableGnomeLuck;
+
         // ...
     }
 }
