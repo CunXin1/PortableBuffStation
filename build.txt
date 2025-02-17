@@ -1,3 +1,5 @@
-displayName = PortableBuffStation
+displayName = Portable Buff Station
 author = CunXin
-version = 0.1
+version = 1.0.0
+description = "A mod that grants buffs from stations while in inventory."
+homepage = "https://github.com/YourRepo"

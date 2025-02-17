@@ -1,1 +1,5 @@
-Modify this file with a description of your mod.
+Portable Buff Station
+----------------------
+Grants buffs from campfires, heart lanterns, and other buff stations while in inventory!
+- No need to place buff stations
+- Fully configurable
