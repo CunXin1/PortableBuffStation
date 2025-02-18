@@ -10,7 +10,14 @@
 
 	<!-- References -->
 	<ItemGroup>
-		
+  	<!-- 如果需要的话，可以添加这三行 -->
+  		<Reference Include="Mono.Cecil" />
+  		<Reference Include="MonoMod.Cil">
+  			<HintPath>$(tMLPath)\MonoMod.Cil.dll</HintPath>
+		</Reference>
+
+  		<Reference Include="MonoMod.RuntimeDetour" />
 	</ItemGroup>
+
 
 </Project>
