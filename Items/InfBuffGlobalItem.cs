@@ -20,6 +20,7 @@ namespace PortableBuffStation
         /// 返回此物品可能提供的Buff列表(药水Buff 或 增益站Buff)
         /// 也可包含侏儒/蜂蜜等特殊判断
         /// </summary>
+        
         public static List<int> GetBuffTypes(Item item)
         {
             var list = new List<int>();
@@ -39,15 +40,7 @@ namespace PortableBuffStation
            
             return list;
         }
-
-        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
-        {
-            // 如果它是可用的无限Buff物品，就加一些提示
-            var buffTypes = GetBuffTypes(item);
-            if (buffTypes.Count > 0)
-            {
-                tooltips.Add(new TooltipLine(Mod, "InfBuff", "[In Inventory] Provides infinite buff(s)."));
-            }
-        }
+        
+        
     }
 }

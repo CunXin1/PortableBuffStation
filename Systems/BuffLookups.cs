@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace PortableBuffStation.Systems
 {
@@ -11,7 +12,6 @@ namespace PortableBuffStation.Systems
     /// </summary>
     public static class BuffLookups
     {
-        
         // 原版增益站(放置型)
         // 对于营火/心灯/星瓶/向日葵/侏儒/蜡烛 之类, 我们把 "物品ID -> buffID" 或 "物品ID -> specialFlag" 简化处理
         // 也可使用 SceneMetrics 方式, 这里仅做一个记录
@@ -56,6 +56,7 @@ namespace PortableBuffStation.Systems
         /// 返回 item 是否是增益站物品(营火/心灯/侏儒/蜡烛等)
         /// 若是侏儒, 可能返回 -100 这样的特殊标记
         /// </summary>
+        
         public static int GetStationBuff(int itemType)
         {
             if (VanillaBuffStations.TryGetValue(itemType, out var buff))
@@ -64,5 +65,36 @@ namespace PortableBuffStation.Systems
                 return modBuff;
             return -1;
         }
+        
     }
+
+
+
+    /// <summary>
+    /// 这里将其 buffNoTimeDisplay 设置为 true，隐藏倒计时。
+    /// </summary>
+    public class HideBuff : ModSystem
+    {
+        public override void PostDrawInterface(SpriteBatch spriteBatch)
+        {
+
+            Main.buffNoTimeDisplay[BuffID.Campfire] = true; // 营火
+            Main.buffNoTimeDisplay[BuffID.HeartLamp] = true; // 心形灯笼
+            Main.buffNoTimeDisplay[BuffID.Sunflower] = true; // 向日葵
+            Main.buffNoTimeDisplay[BuffID.StarInBottle] = true; // 星瓶
+            Main.buffNoTimeDisplay[BuffID.WaterCandle] = true; // 水蜡烛
+            Main.buffNoTimeDisplay[BuffID.PeaceCandle] = true; // 和平蜡烛
+            Main.buffNoTimeDisplay[BuffID.ShadowCandle] = true; // 暗影蜡烛
+            Main.buffNoTimeDisplay[BuffID.CatBast] = true; // 巴斯特雕像
+            Main.buffNoTimeDisplay[BuffID.Bewitched] = true; // 女巫桌
+            Main.buffNoTimeDisplay[BuffID.AmmoBox] = true; // 弹药箱
+            Main.buffNoTimeDisplay[BuffID.Sharpened] = true; // 磨刀架
+            Main.buffNoTimeDisplay[BuffID.Clairvoyance] = true; // 水晶球
+            Main.buffNoTimeDisplay[BuffID.SugarRush] = true; // 蛋糕
+            Main.buffNoTimeDisplay[BuffID.Honey] = true; // 蜂蜜
+
+        }
+    }
+
+
 }
