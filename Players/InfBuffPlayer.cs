@@ -19,7 +19,7 @@ namespace PortableBuffStation
         public HashSet<Item> AvailableItemsHash = new();
 
         private int _scanCooldown = 0;
-        private const int ScanInterval = 120; // 每120帧更新一次
+        private const int ScanInterval = 60; // 每60帧更新一次
 
         public override void PostUpdateBuffs()
         {
@@ -29,7 +29,7 @@ namespace PortableBuffStation
             // 然后把可用物品的Buff应用给玩家
             ApplyAvailableBuffs();
 
-            // 每隔2秒刷新物品列表
+            // 每隔1秒刷新物品列表
             _scanCooldown++;
             if (_scanCooldown >= ScanInterval)
             {
@@ -50,7 +50,7 @@ namespace PortableBuffStation
             {
                 // 给玩家短时Buff，但会用HideBuffSystem隐藏0秒图标
                 Player.AddBuff(buffType, 30);
-
+                /**
                 // 同时如果是环境Buff，就设置SceneMetrics标志
                 if (buffType == BuffID.Campfire)
                 {
@@ -116,6 +116,7 @@ namespace PortableBuffStation
                 {
                     // 蜂蜜（加速生命回复）
                 }
+                **/
             }
             // 如果 buffType == -100，则表示侏儒，需要特殊处理
             else if (buffType == -100)
