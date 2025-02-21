@@ -49,6 +49,34 @@ namespace PortableBuffStation.Systems
         public static Dictionary<int, int> ModdedStations = new Dictionary<int, int>();
 
         /// <summary>
+        /// 添加灾厄模组（CalamityMod）中的 buff station 映射。
+        /// 注意：以下内部名称（internal names）仅为示例，请根据灾厄模组实际内部名称进行调整。
+        /// </summary>
+        public static void AddCalamityBuffStations(Mod calamity)
+        {
+            // Chaos Candle
+            ModdedStations.Add(calamity.Find<ModItem>("ChaosCandle").Type, calamity.Find<ModBuff>("ChaosCandleBuff").Type);
+            // Corruption Effigy
+            ModdedStations.Add(calamity.Find<ModItem>("CorruptionEffigy").Type, calamity.Find<ModBuff>("CorruptionEffigyBuff").Type);
+            // Crimson Effigy
+            ModdedStations.Add(calamity.Find<ModItem>("CrimsonEffigy").Type, calamity.Find<ModBuff>("CrimsonEffigyBuff").Type);
+            // Effigy of Decay
+            ModdedStations.Add(calamity.Find<ModItem>("EffigyOfDecay").Type, calamity.Find<ModBuff>("EffigyOfDecayBuff").Type);
+            // Weightless Candle 
+            ModdedStations.Add(calamity.Find<ModItem>("WeightlessCandle").Type, calamity.Find<ModBuff>("CirrusBlueCandleBuff").Type);
+            // Resilient Candle
+            ModdedStations.Add(calamity.Find<ModItem>("ResilientCandle").Type, calamity.Find<ModBuff>("CirrusPurpleCandleBuff").Type);
+            // Spiteful Candle
+            ModdedStations.Add(calamity.Find<ModItem>("SpitefulCandle").Type, calamity.Find<ModBuff>("CirrusYellowCandleBuff").Type);
+            // Tranquility Candle
+            ModdedStations.Add(calamity.Find<ModItem>("TranquilityCandle").Type, calamity.Find<ModBuff>("TranquilityCandleBuff").Type);
+            // Vigorous Candle
+            ModdedStations.Add(calamity.Find<ModItem>("VigorousCandle").Type, calamity.Find<ModBuff>("CirrusPinkCandleBuff").Type);
+
+        }
+
+
+        /// <summary>
         /// 根据物品类型返回对应的Buff编号。
         /// 若物品不属于任何增益站，则返回 -1。
         /// </summary>
@@ -88,6 +116,8 @@ namespace PortableBuffStation.Systems
             Main.buffNoTimeDisplay[BuffID.Clairvoyance] = true;      // 水晶球（Crystal Ball）
             Main.buffNoTimeDisplay[BuffID.SugarRush] = true;         // 蛋糕（Slice of Cake）
             Main.buffNoTimeDisplay[BuffID.Honey] = true;             // 蜂蜜（Honey）
+
+            
         }
     }
 }
