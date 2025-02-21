@@ -52,7 +52,7 @@ namespace PortableBuffStation
                     if (buffType >= 0)
                     {
                         // 为玩家添加一个持续30帧的Buff，同时利用 HideBuffSystem 隐藏倒计时显示
-                        Player.AddBuff(buffType, 30);
+                        Player.AddBuff(buffType, 60);
                     }
                     // 特殊处理：buffType为 -100 表示侏儒效果，需增加幸运值（luck）
                     else if (buffType == -100)
